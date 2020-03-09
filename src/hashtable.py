@@ -86,7 +86,33 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        # generate the index for the element by hashing the key passed in to insert method
+        index = self._hash_mod(key)
+        # check if storage at new index is empty
+        node = self.storage[index]
+
+        # if the key of the node at the given index is equal to the key passed in, set the value of the node to None and return from funciton
+        if node.key == key: 
+            node.value = None
+            return
+
+        # else, while node is not None iterate over other nodes (ie LinkedPairs)
+        while node is not None:
+            # if the key of the current node == key passed in, break (we will need to set the value of node to None)
+            if node.key == key:
+                break
+            # set the value of prev equal to the current node
+            prev = node
+            # set the value of the current node == current node.next to continue iterating
+            node = node.next
+        # if node is None (we've iterated over all LinkedPairs and not not found a node with the key we're looking for) just return None    
+        if node is None:
+            return None
+        # else we have found the nound we're looking for -> set the next node of the previous node equal to the next node of the current node   
+        prev.next = node.next
+        # set the current node = None
+        node.value = None    
+
 
 
     def retrieve(self, key):
@@ -102,13 +128,13 @@ class HashTable:
        # iterate over linked list at given index
        # while the next value of current node is not none and the key of the current node is not equal to the key we're looking for, we still have more elements to check
         node = self.storage[index]
-        while node is not None:
-            if node.key == key:
-                return node.value
-            else:    
-                node = node.next
+        while node is not None and node.key != key:
+            node = node.next
         # if we get to a point where node == None then we have reached the end of the list and the element has not been found -> return None
-        return None    
+        if node is None:
+            return None   
+        # else we have reached a point in the list where the node is not None and the the node.key == key -> return the value of the node
+        return node.value    
      
 
 
