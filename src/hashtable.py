@@ -61,14 +61,20 @@ class HashTable:
             # set the value in storage at given index equal to new LinkedPair with key and value and return from function
             self.storage[index] = LinkedPair(key, value)
             return
-        # else a collision has occurred -> iterate to the end of the list
+        # else a collision has occurred -> iterate over the list while node is not None
+        # store the value of the previous node in list in 'prev' variable (initialised to the value of the node itself on first pass)
         prev = node
         while node is not None:
+            # if the key of the previous node is tha same as the one we're passing in, the linked pair already exists ->
             if prev.key == key:
-                prev.value = value        
+                # overwrite the value of the linked pair
+                prev.value = value 
+            # else continue iterating over list
+            # set the value of prev to the current node         
             prev = node
+            # and set the value of the current node equal to the value of the next node   
             node = node.next
-        # once at the end of the list add the new LinkedPair    
+        # if the value of node is None (we have reached end of list and exited the while loop), add a new node 
         prev.next = LinkedPair(key, value)
 
 
