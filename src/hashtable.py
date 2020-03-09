@@ -62,11 +62,14 @@ class HashTable:
             self.storage[index] = LinkedPair(key, value)
             return
         # else a collision has occurred -> iterate to the end of the list
-        while node.next is not None:
+        prev = node
+        while node is not None:
+            if prev.key == key:
+                prev.value = value        
+            prev = node
             node = node.next
         # once at the end of the list add the new LinkedPair    
-        node.next = LinkedPair(key, value)
-
+        prev.next = LinkedPair(key, value)
 
 
     def remove(self, key):
@@ -93,13 +96,14 @@ class HashTable:
        # iterate over linked list at given index
        # while the next value of current node is not none and the key of the current node is not equal to the key we're looking for, we still have more elements to check
         node = self.storage[index]
-        while node is not None and node.key != key:
-            node = node.next
+        while node is not None:
+            if node.key == key:
+                return node.value
+            else:    
+                node = node.next
         # if we get to a point where node == None then we have reached the end of the list and the element has not been found -> return None
-        if node is None:
-            return None    
-        # else the element has been found -> return value of node
-        return node.value    
+        return None    
+     
 
 
     def resize(self):
