@@ -126,14 +126,14 @@ class HashTable:
        # generate the index to search for by hashing the key
         index = self._hash_mod(key)
        # iterate over linked list at given index
-       # while the next value of current node is not none and the key of the current node is not equal to the key we're looking for, we still have more elements to check
+       # while the value of current node is not none and the key of the current node is not equal to the key we're looking for, we still have more elements to check
         node = self.storage[index]
         while node is not None and node.key != key:
             node = node.next
         # if we get to a point where node == None then we have reached the end of the list and the element has not been found -> return None
         if node is None:
             return None   
-        # else we have reached a point in the list where the node is not None and the the node.key == key -> return the value of the node
+        # else we have reached a point in the list where the node is not None and the node.key == key -> return the value of the node
         return node.value    
      
 
@@ -145,7 +145,23 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        # set the capacity of hash table to be double what it currently is
+        self.capacity *= 2
+        # declare variable to hold everything from old storage
+        old_storage = self.storage
+        # set storage equal to array of Nones * new doubled capacity
+        self.storage = [None] * self.capacity
+        # iterate over old storage buckets
+        for linked_pairs in old_storage:
+            # if a list of linked pairs exists
+            if linked_pairs is not None:
+                # iterate over linked pairs
+                node = linked_pairs
+                while node is not None:
+                    # insert into the hash table passing in the current nodes key and current nodes value
+                    self.insert(node.key, node.value)
+                    # set the val of current node = node.next to continue iteration
+                    node = node.next
 
 
 
