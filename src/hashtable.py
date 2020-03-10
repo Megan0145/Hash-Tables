@@ -31,8 +31,7 @@ class HashTable:
         Hash an arbitrary key using DJB2 hash
 
         OPTIONAL STRETCH: Research and implement DJB2
-        '''
-        
+        '''    
         # start from an arbitrary large prime such as (5381)
         # set the hash value to 5381
         hash_val = 5381
@@ -171,6 +170,16 @@ class HashTable:
                     # set the val of current node = node.next to continue iteration
                     node = node.next
 
+    def debug_print(self):
+        for i in range(self.capacity):
+            node = self.storage[i]
+            print('Bucket {}'.format(i))
+            if node:
+                while node:
+                    print('    {}'.format(node.value))
+                    node = node.next
+            else:
+                print('    Empty')
 
 
 if __name__ == "__main__":
@@ -181,7 +190,6 @@ if __name__ == "__main__":
     ht.insert("line_3", "Linked list saves the day!")
 
     print("")
-
     # Test storing beyond capacity
     print(ht.retrieve("line_1"))
     print(ht.retrieve("line_2"))
