@@ -65,7 +65,7 @@ class HashTable:
         # store the value of the previous node in list in 'prev' variable (initialised to the value of the node itself on first pass)
         prev = node
         while node is not None:
-            # if the key of the previous node is tha same as the one we're passing in, the linked pair already exists ->
+            # if the key of the previous node is the same as the one we're passing in, the linked pair already exists ->
             if prev.key == key:
                 # overwrite the value of the linked pair
                 prev.value = value 
@@ -91,7 +91,7 @@ class HashTable:
         # check if storage at new index is empty
         node = self.storage[index]
 
-        # if the key of the node at the given index is equal to the key passed in, set the value of the node to None and return from funciton
+        # if the key of the node at the given index is equal to the key passed in, set the value of the node to None and return from function
         if node.key == key: 
             node.value = None
             return
@@ -108,7 +108,7 @@ class HashTable:
         # if node is None (we've iterated over all LinkedPairs and not not found a node with the key we're looking for) just return None    
         if node is None:
             return None
-        # else we have found the nound we're looking for -> set the next node of the previous node equal to the next node of the current node   
+        # else we have found the node we're looking for -> set the next node of the previous node equal to the next node of the current node   
         prev.next = node.next
         # set the current node = None
         node.value = None    
@@ -136,7 +136,6 @@ class HashTable:
         # else we have reached a point in the list where the node is not None and the node.key == key -> return the value of the node
         return node.value    
      
-
 
     def resize(self):
         '''
